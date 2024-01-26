@@ -1,0 +1,23 @@
+{
+  "decideLanguage": "Would you like to use the calculator in english or french? (en/fr)\nSouhaitez-vous utiliser la calculatrice en anglais ou en français (en/fr)",
+  "en": {
+    "welcome": "Welcome to Calculator!",
+    "promt1": "What's the first number?",
+    "invalidNum": "Hmm... that doesn't look like a valid number.",
+    "promt2": "What's the second number?",
+    "promtOperator": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "invalidOperator": "Must choose 1, 2, 3 or 4",
+    "promtRunAgain": "would you like to calculate another set of numbers? (y/n)",
+    "goodbye": "Thank you for using the calculator! Goodbye!"
+  },
+  "fr": {
+    "welcome": "Bienvenue sur Calculatrice!",
+    "promt1": "Quel est le premier numéro ?",
+    "invalidNum": "Hmm... cela ne ressemble pas à un numéro valide.",
+    "promt2": "Quel est le deuxième numéro ?",
+    "promtOperator": "Quelle opération souhaitez-vous effectuer ?\n1) Ajouter 2) Soustraire 3) Multiplier 4) Diviser",
+    "invalidOperator": "Doit choisir 1, 2, 3 ou 4",
+    "promtRunAgain": "Voudriez-vous calculer une autre série de nombres ? (y/n)",
+    "goodbye": "Merci d'utiliser la calculatrice ! Au revoir!"
+  }
+}
