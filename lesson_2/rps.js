@@ -8,6 +8,28 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
+function choiceShortToLong(choice) {
+  //convert choice shorthand to the full string
+  switch (choice) {
+    case 'r':
+      choice = 'rock'
+      break;
+    case 'p':
+      choice = 'paper';
+      break;
+    case 'sc':
+      choice = 'scissors';
+      break;
+    case 'l':
+      choice = 'lizard';
+      break;
+    case 'sp':
+      choice = 'spock'
+      break;
+  }
+  return choice;
+}
+
 function didUserWin(choice, computerChoice) {
   if ((choice === 'rock' && computerChoice === 'scissors') ||
     (choice === 'paper' && computerChoice === 'rock') ||
@@ -44,12 +66,18 @@ function displayWinner(choice, computerChoice) {
 //promt the user for their choice
 while (true) {
   prompt(`Choose one: ${VALID_CHOICES.join(', ')}`);
+  prompt('You may type r, p, sc, l, or sp instead.')
   let choice = readline.question();
+
+  //if the user impur shorthand, convert to full string
+  choice = choiceShortToLong(choice);
+
 
   //ensure that the users choice is valid
   while (!VALID_CHOICES.includes(choice)) {
     prompt("That's not a valid choice");
     choice = readline.question();
+    choice = choiceShortToLong(choice);
   }
 
   //compute a random choice for the computer
