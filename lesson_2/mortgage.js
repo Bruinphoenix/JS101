@@ -26,5 +26,9 @@ function mortgageCalc(totalLoan, APR, durationMonths) {
   monthlyPayment = monthlyPayment.toFixed(2);
   return `The monthly payment will be $${monthlyPayment}.`;
 }
-
-console.log(mortgageCalc(1000, .1, 48));
+let testObj = {};
+console.log(mortgageCalc(1000, .1, testObj)); //logs: 'The duration in months must be an integer'
+console.log(mortgageCalc('hello', .1, 48)); //logs: 'The total loan amount must be a number'
+console.log(mortgageCalc(1000, null, 48)); //logs: 'The APR must be a finite number in decimal form'
+console.log(mortgageCalc(NaN, .1, 48)); //logs: 'The total loan amount must be a number'
+console.log(mortgageCalc(1000, .1, 48)); // logs: 'The monthly payment will be $25.36.'
