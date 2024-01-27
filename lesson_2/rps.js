@@ -8,9 +8,7 @@ function prompt(message) {
   console.log(`=> ${message}`);
 }
 
-function displayWinner(choice, computerChoice) {
-  prompt(`You chose ${choice}, computer chose ${computerChoice}`);
-
+function didUserWin(choice, computerChoice) {
   if ((choice === 'rock' && computerChoice === 'scissors') ||
     (choice === 'paper' && computerChoice === 'rock') ||
     (choice === 'scissors' && computerChoice === 'paper') ||
@@ -21,23 +19,25 @@ function displayWinner(choice, computerChoice) {
     (choice === 'lizard' && computerChoice === 'paper') ||
     (choice === 'paper' && computerChoice === 'spock') ||
     (choice === 'spock' && computerChoice === 'rock')) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+function displayWinner(choice, computerChoice) {
+  prompt(`You chose ${choice}, computer chose ${computerChoice}`);
+
+  if (didUserWin(choice, computerChoice)) {
     prompt('You win!');
     return 'user';
-  } else if ((choice === 'rock' && computerChoice === 'paper') ||
-    (choice === 'paper' && computerChoice === 'scissors') ||
-    (choice === 'scissors' && computerChoice === 'rock') ||
-    (choice === 'lizard' && computerChoice === 'rock') ||
-    (choice === 'spock' && computerChoice === 'lizard') ||
-    (choice === 'scissors' && computerChoice === 'spock') ||
-    (choice === 'lizard' && computerChoice === 'scissors') ||
-    (choice === 'paper' && computerChoice === 'lizard') ||
-    (choice === 'spock' && computerChoice === 'paper') ||
-    (choice === 'rock' && computerChoice === 'spock')) {
-    prompt('Computer wins!');
-    return 'computer';
-  } else {
+  } else if (choice === computerChoice) {
     prompt("It's a tie!");
     return undefined;
+  } else {
+    prompt("The computer wins!");
+    return 'computer';
   }
 }
 
@@ -52,11 +52,11 @@ while (true) {
     choice = readline.question();
   }
 
-  //compute a random choice for the computer 
+  //compute a random choice for the computer
   let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
   let computerChoice = VALID_CHOICES[randomIndex];
 
-  //determine the winner and update the win tally acordingly. 
+  //determine the winner and update the win tally acordingly.
   let winner = displayWinner(choice, computerChoice);
   if (winner === 'user') userWins++;
   if (winner === 'computer') computerWins++;
@@ -65,8 +65,7 @@ while (true) {
   if (userWins >= 5) {
     prompt('You are the grand winner! Congratulations!');
     break;
-  }
-  else if (computerWins >= 5) {
+  } else if (computerWins >= 5) {
     prompt('The computer is the grand winner! Better luck next time.');
     break;
   }
