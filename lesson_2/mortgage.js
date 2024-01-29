@@ -40,6 +40,17 @@ function getValidNumber(initialPrompt, errorPrompt, allowFloats) {
 }
 
 function getValidInput(initialPrompt, errorPrompt, VALID_RESPONSES) {
+  /*
+    Retreives an imput string from the user and ensures that is valid.
+    @param {string} initialPrompt - the string output to the user to 
+    prompt them to give the desired input
+    @param {string} errorPrompt - the string output to the user if their 
+    initial input attempt is invalid.
+    @param {array} VALID_RESPONSES - an array containing strings of all 
+    valid responses.
+    @returns {string} - the verified string given by the user
+  */
+
   prompt(initialPrompt);
   let input = readline.question();
 
@@ -60,12 +71,11 @@ function calculatePayment(totalLoan, APR, durationMonths) {
     @param {number} APR - the annual percentage rate of the loan,
     in number form. ie 17% would be given as 17.
     @param {number} durationMonths - the duration of the loan, in months
-    @returns {string} A string telling you the monthly payment.
+    @returns {number} A number representing the monthly payment.
   */
 
   //convert the APR to decimal notation and find the monthly rate.
   const DECIMAL_APR = APR / 100;
-  console.log(DECIMAL_APR);
   const MONTHLY_RATE = DECIMAL_APR / 12;
 
   let monthlyPayment = totalLoan * (MONTHLY_RATE / (1 - Math.pow((1 + MONTHLY_RATE), (-durationMonths))));
@@ -77,6 +87,12 @@ function calculatePayment(totalLoan, APR, durationMonths) {
 
 
 function calcUserInterface() {
+  /*
+    Implements a simple terminal accesible user interface for the calculatePayment function.
+    @param- none
+    @returns- none
+  */
+
   prompt(MESSAGES.welcome);
   let runAgain = true;
 
