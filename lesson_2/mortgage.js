@@ -1,34 +1,100 @@
-function mortgageCalc(totalLoan, APR, durationMonths) {
+const readline = require('readline-sync');
+const MESSAGES = require('./mortgage_messages.json');
+const VALID_RESPONSES = ['y', 'n'];
+
+function prompt(message) {
+  console.log(`=> ${message}`);
+}
+
+function invalidNumber(number, allowFloats) {
+  if (allowFloats) {
+    return number.trimStart() === '' || Number.isNaN(Number(number));
+  } else {
+    return number.trimStart() === '' || !Number.isInteger(Number(number));
+  }
+}
+
+
+
+function getValidNumber(initialPrompt, errorPrompt, allowFloats) {
+  /*
+    Retreives a number from the user and ensures that is valid.
+    @param {string} initialPrompt - the string output to the user to 
+    prompt them to give the desired input
+    @param {string} errorPrompt - the string output to the user if their 
+    initial input attempt is invalid.
+    @param {boolean} allowFloats - if this is true, the function will allow
+    the user to input float values, if not, only integers will be accepted.
+    @returns {number} the verified number given by the user
+  */
+
+  prompt(initialPrompt);
+  let inputNumber = readline.question();
+
+  //ensure the entered number is valid
+  while (invalidNumber(inputNumber, allowFloats)) {
+    prompt(errorPrompt);
+    inputNumber = readline.question();
+  }
+  return inputNumber;
+}
+
+function getValidInput(initialPrompt, errorPrompt, VALID_RESPONSES) {
+  prompt(initialPrompt);
+  let input = readline.question();
+
+  //check validity of langauge input and repromt if nessisary
+  while (!VALID_RESPONSES.includes(input)) {
+    prompt(errorPrompt);
+    input = readline.question();
+  }
+  return input;
+}
+
+
+
+function calculatePayment(totalLoan, APR, durationMonths) {
   /*
     Calculates the monthly payment on a given fixed rate mortgage.
     @param {number} TotalLoan - the total loan principle.
     @param {number} APR - the annual percentage rate of the loan,
-    in decimal form. ie 17% would be given as .17
+    in number form. ie 17% would be given as 17.
     @param {number} durationMonths - the duration of the loan, in months
     @returns {string} A string telling you the monthly payment.
   */
 
-  //Guard Cases
-  if (!Number.isInteger(durationMonths)) {
-    return 'The duration in months must be an integer';
-
-  }
-  if (!Number.isFinite(totalLoan)) {
-    return 'The total loan amount must be a number';
-  }
-  if (!Number.isFinite(APR)) {
-    return 'The APR must be a finite number in decimal form';
-  }
-
-  const MONTHLY_RATE = APR / 12;
+  //convert the APR to decimal notation and find the monthly rate.
+  const DECIMAL_APR = APR / 100;
+  console.log(DECIMAL_APR);
+  const MONTHLY_RATE = DECIMAL_APR / 12;
 
   let monthlyPayment = totalLoan * (MONTHLY_RATE / (1 - Math.pow((1 + MONTHLY_RATE), (-durationMonths))));
   monthlyPayment = monthlyPayment.toFixed(2);
-  return `The monthly payment will be $${monthlyPayment}.`;
+  return monthlyPayment;
 }
-let testObj = {};
-console.log(mortgageCalc(1000, .1, testObj)); //logs: 'The duration in months must be an integer'
-console.log(mortgageCalc('hello', .1, 48)); //logs: 'The total loan amount must be a number'
-console.log(mortgageCalc(1000, null, 48)); //logs: 'The APR must be a finite number in decimal form'
-console.log(mortgageCalc(NaN, .1, 48)); //logs: 'The total loan amount must be a number'
-console.log(mortgageCalc(1000, .1, 48)); // logs: 'The monthly payment will be $25.36.'
+
+
+
+
+function calcUserInterface() {
+  prompt(MESSAGES.welcome);
+  let runAgain = true;
+
+  while (runAgain) {
+    let totalMonths = getValidNumber(MESSAGES.promptMonths, MESSAGES.incorrectMonths, false);
+    let totalPrinciple = getValidNumber(MESSAGES.promptLoanTotal, MESSAGES.incorrectLoanTotal, true);
+    let APR = getValidNumber(MESSAGES.promptAPR, MESSAGES.incorrectAPR, true);
+
+    const MONTHLY_PAYMENT = calculatePayment(totalPrinciple, APR, totalMonths);
+    prompt(`Your monthly payment will be $${MONTHLY_PAYMENT}.`);
+
+    let runAgainResponse = getValidInput(MESSAGES.promptRunAgain, MESSAGES.incorrectRunAgain, VALID_RESPONSES);
+    if (runAgainResponse === 'n') break;
+
+  }
+
+  prompt(MESSAGES.goodbye);
+}
+
+
+calcUserInterface();
