@@ -6,9 +6,7 @@ const VALID_OPERATORS = ['1', '2', '3', '4',];
 let runAgain = true;
 
 //defines the prompt method used to communicate with the user
-function prompt(message) {
-  console.log(`=> ${message}`);
-}
+
 
 //defines the function used to check if an input number is valid
 function invalidNumber(number) {

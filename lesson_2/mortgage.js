@@ -14,14 +14,12 @@ function invalidNumber(number, allowFloats) {
   }
 }
 
-
-
 function getValidNumber(initialPrompt, errorPrompt, allowFloats) {
   /*
     Retreives a number from the user and ensures that is valid.
-    @param {string} initialPrompt - the string output to the user to 
+    @param {string} initialPrompt - the string output to the user to
     prompt them to give the desired input
-    @param {string} errorPrompt - the string output to the user if their 
+    @param {string} errorPrompt - the string output to the user if their
     initial input attempt is invalid.
     @param {boolean} allowFloats - if this is true, the function will allow
     the user to input float values, if not, only integers will be accepted.
@@ -42,13 +40,13 @@ function getValidNumber(initialPrompt, errorPrompt, allowFloats) {
 function getValidInput(initialPrompt, errorPrompt, VALID_RESPONSES) {
   /*
     Retreives an imput string from the user and ensures that is valid.
-    @param {string} initialPrompt - the string output to the user to 
+    @param {string} initialPrompt - the string output to the user to
     prompt them to give the desired input
-    @param {string} errorPrompt - the string output to the user if their 
+    @param {string} errorPrompt - the string output to the user if their
     initial input attempt is invalid.
-    @param {array} VALID_RESPONSES - an array containing strings of all 
+    @param {array} VALID_RESPONSES - an array containing strings of all
     valid responses.
-    @returns {string} - the verified string given by the user
+    @returns {string} - the verified string given by the user.
   */
 
   prompt(initialPrompt);
@@ -61,7 +59,6 @@ function getValidInput(initialPrompt, errorPrompt, VALID_RESPONSES) {
   }
   return input;
 }
-
 
 
 function calculatePayment(totalLoan, APR, durationMonths) {
@@ -84,29 +81,29 @@ function calculatePayment(totalLoan, APR, durationMonths) {
 }
 
 
-
-
 function calcUserInterface() {
   /*
-    Implements a simple terminal accesible user interface for the calculatePayment function.
+    Implements a simple terminal accesible user interface for the
+    calculatePayment function.
     @param- none
     @returns- none
   */
 
   prompt(MESSAGES.welcome);
-  let runAgain = true;
 
-  while (runAgain) {
-    let totalMonths = getValidNumber(MESSAGES.promptMonths, MESSAGES.incorrectMonths, false);
-    let totalPrinciple = getValidNumber(MESSAGES.promptLoanTotal, MESSAGES.incorrectLoanTotal, true);
+  while (true) {
+    let totalMonths = getValidNumber(MESSAGES.promptMonths,
+      MESSAGES.incorrectMonths, false);
+    let totalPrinciple = getValidNumber(MESSAGES.promptLoanTotal,
+      MESSAGES.incorrectLoanTotal, true);
     let APR = getValidNumber(MESSAGES.promptAPR, MESSAGES.incorrectAPR, true);
 
     const MONTHLY_PAYMENT = calculatePayment(totalPrinciple, APR, totalMonths);
     prompt(`Your monthly payment will be $${MONTHLY_PAYMENT}.`);
 
-    let runAgainResponse = getValidInput(MESSAGES.promptRunAgain, MESSAGES.incorrectRunAgain, VALID_RESPONSES);
+    let runAgainResponse = getValidInput(MESSAGES.promptRunAgain,
+      MESSAGES.incorrectRunAgain, VALID_RESPONSES);
     if (runAgainResponse === 'n') break;
-
   }
 
   prompt(MESSAGES.goodbye);
