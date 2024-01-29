@@ -1,23 +1,26 @@
 {
   "decideLanguage": "Would you like to use the calculator in english or french? (en/fr)\nSouhaitez-vous utiliser la calculatrice en anglais ou en français (en/fr)",
+  "incorrectLanguage": "It seems like the language code you have entered is incorrect. Please try again. ('en' or 'fr')",
   "en": {
     "welcome": "Welcome to Calculator!",
-    "promt1": "What's the first number?",
+    "prompt1": "What's the first number?",
     "invalidNum": "Hmm... that doesn't look like a valid number.",
-    "promt2": "What's the second number?",
-    "promtOperator": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+    "prompt2": "What's the second number?",
+    "promptOperator": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
     "invalidOperator": "Must choose 1, 2, 3 or 4",
-    "promtRunAgain": "would you like to calculate another set of numbers? (y/n)",
+    "promptRunAgain": "would you like to calculate another set of numbers? (y/n)",
+    "incorrectRunAgain": "It seems like you did not enter 'y' or 'n'. Please make a selection.",
     "goodbye": "Thank you for using the calculator! Goodbye!"
   },
   "fr": {
     "welcome": "Bienvenue sur Calculatrice!",
-    "promt1": "Quel est le premier numéro ?",
+    "prompt1": "Quel est le premier numéro ?",
     "invalidNum": "Hmm... cela ne ressemble pas à un numéro valide.",
-    "promt2": "Quel est le deuxième numéro ?",
-    "promtOperator": "Quelle opération souhaitez-vous effectuer ?\n1) Ajouter 2) Soustraire 3) Multiplier 4) Diviser",
+    "prompt2": "Quel est le deuxième numéro ?",
+    "promptOperator": "Quelle opération souhaitez-vous effectuer ?\n1) Ajouter 2) Soustraire 3) Multiplier 4) Diviser",
     "invalidOperator": "Doit choisir 1, 2, 3 ou 4",
-    "promtRunAgain": "Voudriez-vous calculer une autre série de nombres ? (y/n)",
+    "promptRunAgain": "Voudriez-vous calculer une autre série de nombres ? (y/n)",
+    "incorrectRunAgain": "Il semble que vous n'ayez pas saisi 'y' ou 'n'. Veuillez faire une sélection.",
     "goodbye": "Merci d'utiliser la calculatrice ! Au revoir!"
   }
 }
