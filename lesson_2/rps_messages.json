@@ -1,0 +1,12 @@
+{
+  "welcome": "Welcome to rock, paper, scissors, lizard, spock! \n For a full list of rules please visit:\n https://web.archive.org/web/20181217114425/http://www.samkass.com/theories/RPSSL.html\n",
+  "promptValidInputs": "Choose one: rock, paper, scissors, lizard, or spock. \nYou may also type r, p, sc, l, or sp instead.",
+  "invalidInput": "That's not a valid choice. Please try agin.",
+  "tie": "It's a tie!",
+  "userWin": "You win!",
+  "compWin": "The computer wins!",
+  "userGrandWin": "You won 5 times, making you the grand winner! Congratulations!",
+  "compGrandWin": "The computer won 5 times, making it grand winner! Better luck next time.",
+  "promptPlayAgain": "Do you want to play again (y/n)?",
+  "invalidPlayAgain": "It doesn't look like you entered a valid key. \n Please enter 'y' or 'n'."
+}

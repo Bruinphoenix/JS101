@@ -1,5 +1,14 @@
 const readline = require('readline-sync');
 const VALID_CHOICES = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+const VALID_YESNO = ['y', 'n'];
+const WIN_COMBOS = {
+  rock: ['scissors', 'lizard',],
+  paper: ['rock', 'spock',],
+  scissors: ['paper', 'lizard',],
+  lizard: ['spock', 'paper',],
+  spock: ['scissors', 'rock',]
+};
+const MESS = require('./rps_messages.json');
 
 let userWins = 0;
 let computerWins = 0;
@@ -12,7 +21,7 @@ function choiceShortToLong(choice) {
   //convert choice shorthand to the full string
   switch (choice) {
     case 'r':
-      choice = 'rock'
+      choice = 'rock';
       break;
     case 'p':
       choice = 'paper';
@@ -24,87 +33,92 @@ function choiceShortToLong(choice) {
       choice = 'lizard';
       break;
     case 'sp':
-      choice = 'spock'
+      choice = 'spock';
       break;
   }
   return choice;
 }
 
-function didUserWin(choice, computerChoice) {
-  if ((choice === 'rock' && computerChoice === 'scissors') ||
-    (choice === 'paper' && computerChoice === 'rock') ||
-    (choice === 'scissors' && computerChoice === 'paper') ||
-    (choice === 'rock' && computerChoice === 'lizard') ||
-    (choice === 'lizard' && computerChoice === 'spock') ||
-    (choice === 'spock' && computerChoice === 'scissors') ||
-    (choice === 'scissors' && computerChoice === 'lizard') ||
-    (choice === 'lizard' && computerChoice === 'paper') ||
-    (choice === 'paper' && computerChoice === 'spock') ||
-    (choice === 'spock' && computerChoice === 'rock')) {
+function didUserWin(userChoice, computerChoice) {
+  if (WIN_COMBOS[userChoice].includes(computerChoice)) {
     return true;
   }
-  else {
-    return false;
-  }
+  return false;
 }
 
-function displayWinner(choice, computerChoice) {
-  prompt(`You chose ${choice}, computer chose ${computerChoice}`);
+function displayWinner(userChoice) {
+  //make a random selection for the computers choice
+  const randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
+  const computerChoice = VALID_CHOICES[randomIndex];
 
-  if (didUserWin(choice, computerChoice)) {
-    prompt('You win!');
+  prompt(`You chose ${userChoice}, computer chose ${computerChoice}`);
+
+  if (didUserWin(userChoice, computerChoice)) {
+    prompt(MESS.userWin);
     return 'user';
-  } else if (choice === computerChoice) {
-    prompt("It's a tie!");
+  } else if (userChoice === computerChoice) {
+    prompt(MESS.tie);
     return undefined;
   } else {
-    prompt("The computer wins!");
+    prompt(MESS.compWin);
     return 'computer';
   }
 }
 
-//promt the user for their choice
-while (true) {
-  prompt(`Choose one: ${VALID_CHOICES.join(', ')}`);
-  prompt('You may type r, p, sc, l, or sp instead.')
-  let choice = readline.question();
+function getValidInput(initialPrompt, errorPrompt, VALID_RESPONSES) {
+  /*
+    Retreives an imput string from the user and ensures that is valid.
+    @param {string} initialPrompt - the string output to the user to
+    prompt them to give the desired input
+    @param {string} errorPrompt - the string output to the user if their
+    initial input attempt is invalid.
+    @param {array} VALID_RESPONSES - an array containing strings of all
+    valid responses.
+    @returns {string} - the verified string given by the user.
+  */
 
-  //if the user impur shorthand, convert to full string
-  choice = choiceShortToLong(choice);
+  prompt(initialPrompt);
+  let input = readline.question();
 
+  //if the user imput shorthand, convert to full string
+  input = choiceShortToLong(input);
 
-  //ensure that the users choice is valid
-  while (!VALID_CHOICES.includes(choice)) {
-    prompt("That's not a valid choice");
-    choice = readline.question();
-    choice = choiceShortToLong(choice);
+  //check validity of langauge input and repromt if nessisary
+  while (!VALID_RESPONSES.includes(input)) {
+    prompt(errorPrompt);
+    input = readline.question();
+    input = choiceShortToLong(input);
   }
-
-  //compute a random choice for the computer
-  let randomIndex = Math.floor(Math.random() * VALID_CHOICES.length);
-  let computerChoice = VALID_CHOICES[randomIndex];
-
-  //determine the winner and update the win tally acordingly.
-  let winner = displayWinner(choice, computerChoice);
-  if (winner === 'user') userWins++;
-  if (winner === 'computer') computerWins++;
-
-  //check if either player has reached 5 wins to become grand winner
-  if (userWins >= 5) {
-    prompt('You are the grand winner! Congratulations!');
-    break;
-  } else if (computerWins >= 5) {
-    prompt('The computer is the grand winner! Better luck next time.');
-    break;
-  }
-
-  //promt the user to see if they wish to play again
-  prompt('Do you want to play again (y/n)?');
-  let answer = readline.question().toLowerCase();
-  while (answer[0] !== 'n' && answer[0] !== 'y') {
-    prompt('Please enter "y" or "n".');
-    answer = readline.question().toLowerCase();
-  }
-
-  if (answer[0] !== 'y') break;
+  return input;
 }
+
+function playRPS() {
+  prompt(MESS.welcome);
+
+  while (true) {
+    let userChoice = getValidInput(MESS.promptValidInputs,
+      MESS.invalidInput, VALID_CHOICES);
+
+    //determine the winner and update the win tally acordingly.
+    let winner = displayWinner(userChoice);
+    if (winner === 'user') userWins++;
+    if (winner === 'computer') computerWins++;
+
+    //check if either player has reached 5 wins to become grand winner
+    if (userWins >= 5) {
+      prompt(MESS.userGrandWin);
+      break;
+    } else if (computerWins >= 5) {
+      prompt(MESS.compGrandWin);
+      break;
+    }
+
+    //promt the user to see if they wish to play again
+    let playAgain = getValidInput(MESS.promptPlayAgain,
+      MESS.invalidPlayAgain, VALID_YESNO);
+
+    if (playAgain !== 'y') break;
+  }
+}
+
+playRPS();
