@@ -7,6 +7,7 @@ function prompt(message) {
 }
 
 function invalidNumber(number, allowFloats) {
+  if (number < 0) return true;
   if (allowFloats) {
     return number.trimStart() === '' || Number.isNaN(Number(number));
   } else {
@@ -75,7 +76,9 @@ function calculatePayment(totalLoan, APR, durationMonths) {
   const DECIMAL_APR = APR / 100;
   const MONTHLY_RATE = DECIMAL_APR / 12;
 
-  let monthlyPayment = totalLoan * (MONTHLY_RATE / (1 - Math.pow((1 + MONTHLY_RATE), (-durationMonths))));
+  let monthlyPayment = totalLoan * (MONTHLY_RATE /
+    (1 - Math.pow((1 + MONTHLY_RATE), (-durationMonths))));
+  console.log(monthlyPayment);
   monthlyPayment = monthlyPayment.toFixed(2);
   return monthlyPayment;
 }

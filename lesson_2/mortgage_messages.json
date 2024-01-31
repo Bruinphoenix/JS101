@@ -1,11 +1,11 @@
 {
   "welcome": "Welcome to the Mortgage Calculator! \n You can use this calculator to calculate your monthly payment. \n",
   "promptMonths": "Please enter the total duration of your loan in months.",
-  "incorrectMonths": "hmmm... it doesn't look like you entered a number. \n The number of months must be an integer like 12 or 48. Please try again.",
+  "incorrectMonths": "hmmm... it doesn't look like you entered a number. \n The number of months must be a positive integer like 12 or 48. Please try again.",
   "promptLoanTotal": "Please enter the total loan principle",
-  "incorrectLoanTotal": "hmmm... it doesn't look like you entered a number. \n The loan total must be an number like 1000 or 543.21. Please try again.",
+  "incorrectLoanTotal": "hmmm... it doesn't look like you entered a number. \n The loan total must be a positve number like 1000 or 543.21. Please try again.",
   "promptAPR": "Please enter the APR on this loan. eg input 17 or for a 17% APR.",
-  "incorrectAPR": "hmmm... it doesn't look like you entered a number. \n The APR must be an number like 18 or 21.2. Please try again.",
+  "incorrectAPR": "hmmm... it doesn't look like you entered a number. \n The APR must be a positive number like 18 or 21.2. Please try again.",
   "promptRunAgain": "would you like to calculate another mortgage payment? (y/n)",
   "incorrectRunAgain": "It seems like you did not enter 'y' or 'n'. Please make a selection.",
   "goodbye": "Thank you for using the mortgage calculator! Goodbye!"
