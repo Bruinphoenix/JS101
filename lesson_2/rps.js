@@ -18,7 +18,7 @@ function prompt(message) {
 }
 
 function choiceShortToLong(choice) {
-  //convert choice shorthand to the full string
+  //convert shorthand to the full string
   switch (choice) {
     case 'r':
       choice = 'rock';
@@ -80,7 +80,7 @@ function getValidInput(initialPrompt, errorPrompt, VALID_RESPONSES) {
   prompt(initialPrompt);
   let input = readline.question();
 
-  //if the user imput shorthand, convert to full string
+  //if the user imput shorthand, convert to the full string
   input = choiceShortToLong(input);
 
   //check validity of langauge input and repromt if nessisary
